@@ -1,0 +1,53 @@
+software = {
+        version = "1.0";
+
+        sama5d27-wlsom1-ek-sd = {
+                hardware-compatibility = ["1.0"];
+                stable : {
+                        copy2 : {
+                                images: ({
+                                                filename = "swupdate-delta-image-sama5d27-wlsom1-ek-sd.header";
+                                                type = "delta";
+                                                device = "/dev/mmcblk0p3";
+                                                properties: {
+                                                        url = "https://hostname.local/artifacts/swupdate-delta-image-sama5d27-wlsom1-ek-sd.zck";
+                                                        chain = "raw";
+                                                        source = "/dev/mmcblk0p2";
+                                                        zckloglevel = "error";
+                                                        /*debug-chunks = "true";*/
+                                                }
+                                        })
+                                        scripts: ({
+                                                filename = "emmcsetup.lua";
+                                                type = "lua";
+                                        })
+                                        uboot: ({
+                                                name = "rootpart";
+                                                value = "3";
+                                        })
+                        }
+                        copy1 : {
+                                images: ({
+                                                filename = "swupdate-delta-image-sama5d27-wlsom1-ek-sd.header";
+                                                type = "delta";
+                                                device = "/dev/mmcblk0p2";
+                                                properties: {
+                                                        url = "https://hostname.local/artifacts/swupdate-delta-image-sama5d27-wlsom1-ek-sd.zck";
+                                                        chain = "raw";
+                                                        source = "/dev/mmcblk0p3";
+                                                        zckloglevel = "error";
+                                                        /*debug-chunks = "true";*/
+                                                }
+                                        })
+                                        scripts: ({
+                                                filename = "emmcsetup.lua";
+                                                type = "lua";
+                                        })
+                                        uboot: ({
+                                                name = "rootpart";
+                                                value = "2";
+                                        })
+                        }
+                }
+        }
+}
