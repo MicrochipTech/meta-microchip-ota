@@ -30,14 +30,5 @@ IMAGE_INSTALL = " \
 	bash-completion \
 "
 
-# trick yocto into downloading sources we'll use later by specifying an 
-# override for a MACHINE target we wont actually use in the lab
-# this is not necessary if you are on an internet connected network
-# (i.e not Ethernet static IP, or you have wifi and the static IP at the same time)
-IMAGE_INSTALL:append:sama7g5ek-emmc = " \
-	nano \
-	iperf3 \
-"
-
 inherit core-image
 

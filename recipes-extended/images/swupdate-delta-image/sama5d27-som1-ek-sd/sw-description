@@ -1,16 +1,16 @@
 software = {
         version = "1.0";
 
-        sam9x60-curiosity-sd = {
+        sama5d27-som1-ek-sd = {
                 hardware-compatibility = ["1.0"];
                 stable : {
                         copy2 : {
                                 images: ({
-                                                filename = "swupdate-delta-image-sam9x60-curiosity-sd.header";
+                                                filename = "swupdate-delta-image-sama5d27-som1-ek-sd.header";
                                                 type = "delta";
                                                 device = "/dev/mmcblk0p3";
                                                 properties: {
-                                                        url = "https://hostname.com/artifacts/swupdate-delta-image-sam9x60-curiosity-sd.zck";
+                                                        url = "https://hostname.com/artifacts/swupdate-delta-image-sama5d27-som1-ek-sd.zck";
                                                         chain = "raw";
                                                         source = "/dev/mmcblk0p2";
                                                         zckloglevel = "error";
@@ -28,11 +28,11 @@ software = {
                         }
                         copy1 : {
                                 images: ({
-                                                filename = "swupdate-delta-image-sam9x60-curiosity-sd.header";
+                                                filename = "swupdate-delta-image-sama5d27-som1-ek-sd.header";
                                                 type = "delta";
                                                 device = "/dev/mmcblk0p2";
                                                 properties: {
-                                                        url = "https://hostname.com/artifacts/swupdate-delta-image-sam9x60-curiosity-sd.zck";
+                                                        url = "https://hostname.com/artifacts/swupdate-delta-image-sama5d27-som1-ek-sd.zck";
                                                         chain = "raw";
                                                         source = "/dev/mmcblk0p3";
                                                         zckloglevel = "error";

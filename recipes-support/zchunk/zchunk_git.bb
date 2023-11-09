@@ -5,15 +5,13 @@ LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=daf6e68539f564601a5a5869c31e5242"
 
 SRC_URI = "git://github.com/zchunk/zchunk.git;protocol=https;branch=main"
-
-SRCREV = "bdd6d6fc150d53d89658bebbfa73a7bfd9a89cb4"
-
+SRCREV = "d1af5e3f07fdab124376d9aa27e2e0fa8316c7c5"
 S = "${WORKDIR}/git"
 
-DEPENDS = "\
+DEPENDS = " \
     curl \
     zstd \
-    "
+"
 
 DEPENDS:append:libc-musl = " argp-standalone"
 LDFLAGS:append:libc-musl = " -largp"
