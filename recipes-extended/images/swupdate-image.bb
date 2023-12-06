@@ -11,10 +11,10 @@ SRC_URI = "\
 "
 
 # main application image base
-IMAGE_DEPENDS = "demo-base-image"
+IMAGE_DEPENDS = "base-image"
 
 # images and files that will be used for the deployable swupdate image (.swu)
-SWUPDATE_IMAGES = "demo-base-image"
+SWUPDATE_IMAGES = "base-image"
 
-SWUPDATE_IMAGES_FSTYPES[demo-base-image] = ".ext4.gz"
+SWUPDATE_IMAGES_FSTYPES[base-image] = ".ext4.gz"
 

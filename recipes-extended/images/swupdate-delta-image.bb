@@ -12,12 +12,12 @@ SRC_URI = "\
     file://emmcsetup.lua \
 "
 
-IMAGE_DEPENDS = "demo-base-image"
+IMAGE_DEPENDS = "base-image"
 
 # images and files that will be used for the deployable swupdate image (.swu)
-SWUPDATE_IMAGES = "demo-base-image"
+SWUPDATE_IMAGES = "base-image"
 
-SWUPDATE_IMAGES_FSTYPES[demo-base-image] = ".ext4.gz"
+SWUPDATE_IMAGES_FSTYPES[base-image] = ".ext4.gz"
 
 addtask swupdate_create_delta before do_build
 
@@ -38,4 +38,4 @@ do_swupdate_create_delta() {
 }
 
 do_swupdate_create_delta[dirs] = "${WORKDIR}"
-do_swupdate_create_delta[depends] = "demo-base-image:do_image_complete"
+do_swupdate_create_delta[depends] = "base-image:do_image_complete"
