@@ -1,0 +1,119 @@
+From f93a6778d5c14f53d103d79efb58962a88b37e14 Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Mon, 8 Jan 2024 16:51:12 -0500
+Subject: [PATCH 2/2] add verified boot nodes
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ sam9x60_curiosity.its | 52 ++++++++++++++++++++++++++++++-------------
+ 1 file changed, 36 insertions(+), 16 deletions(-)
+
+diff --git a/sam9x60_curiosity.its b/sam9x60_curiosity.its
+index f941e3e..1322363 100644
+--- a/sam9x60_curiosity.its
++++ b/sam9x60_curiosity.its
+@@ -23,10 +23,7 @@
+ 			load = <0x22000000>;
+ 			entry = <0x22000000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -38,10 +35,7 @@
+ 			compression = "none";
+ 			load = <0x23000000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -65,10 +59,7 @@
+ 			compression = "none";
+ 			load = <0x23100000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -81,10 +72,7 @@
+ 			compression = "none";
+ 			load = <0x23110000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -98,21 +86,53 @@
+ 			kernel = "kernel";
+ 			fdt = "base_fdt";
+ 			ramdisk = "initramfs";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt", "kernel", "ramdisk";
++			};
+ 		};
+ 
+ 		base_dtb {
+ 			description = "Base FDT blob for SAM9X60-Curiosity board";
+ 			fdt = "base_fdt";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		pda5 {
+ 			description = "FDT overlay blob for PDA TM5000 screen";
+ 			fdt = "fdt_pda5";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		wilc {
+ 			description = "FDT overlay blob for WILC3000";
+ 			fdt = "fdt_wilc3000";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 	};
+ };
+-- 
+2.34.1
+

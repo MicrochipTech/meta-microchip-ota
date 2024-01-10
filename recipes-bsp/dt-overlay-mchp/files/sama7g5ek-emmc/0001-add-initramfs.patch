@@ -1,0 +1,31 @@
+diff --git a/sama7g5ek.its b/sama7g5ek.its
+index ea9bbfa..d684c00 100644
+--- a/sama7g5ek.its
++++ b/sama7g5ek.its
+@@ -45,6 +45,18 @@
+ 			};
+ 		};
+ 
++		initramfs {
++			description = "system initramfs";
++			data = /incbin/("./initramfs-image-sama7g5ek-emmc.cpio.gz");
++			type = "ramdisk";
++			arch = "ARM";
++			os = "linux";
++			compression = "none";
++			hash-1 {
++				algo = "sha256";
++			};
++		};
++
+ 		fdt_i2s0_proto {
+ 			description = "Device Tree blob PROTO Audio board overlay";
+ 			data = /incbin/("./sama7g5ek/sama7g5ek_i2s0_proto.dtbo");
+@@ -158,6 +170,7 @@
+ 			description = "Linux kernel and base FDT blob for SAMA7G5-EK board";
+ 			kernel = "kernel";
+ 			fdt = "base_fdt";
++			ramdisk = "initramfs";
+ 		};
+ 
+ 		base_dtb {

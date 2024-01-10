@@ -8,7 +8,12 @@ at91_set_rootpart=if env exists rootpart;then echo Booting from mmcblk0p${rootpa
 board_name=sama5d27_wlsom1_ek
 bootcmd=run at91_set_display; run at91_pda_detect; run at91_prepare_video_bootargs; run at91_set_bootargs; run at91_prepare_bootargs; run at91_prepare_overlays_config; run bootcmd_boot;
 bootcmd_boot=fatload mmc 0:1 ${loadaddr} ${board_name}.itb; bootm ${loadaddr}#kernel_dtb${at91_overlays_config};
+altbootcmd=run bootcmd;
 bootdelay=1
+bootcount=0
+bootlimit=3
+upgrade_available=0
+ustate=0
 loadaddr=0x24000000
 pda4300test=test -n $display && test $display = 4300 && setenv display_var 'pda4' && setenv video_mode ${video_mode_pda4}
 pda4301test=test -n $display && test $display = 4301 && setenv display_var 'pda4' && setenv video_mode ${video_mode_pda4}

@@ -1,0 +1,44 @@
+From 71c51bc88ac62716568f4ecf8a1cf256f30809fa Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Mon, 8 Jan 2024 16:57:36 -0500
+Subject: [PATCH 1/2] add initramfs
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ sama5d27_wlsom1_ek.its | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/sama5d27_wlsom1_ek.its b/sama5d27_wlsom1_ek.its
+index 0883713..15348c6 100644
+--- a/sama5d27_wlsom1_ek.its
++++ b/sama5d27_wlsom1_ek.its
+@@ -45,6 +45,18 @@
+ 			};
+ 		};
+ 
++		initramfs {
++			description = "system initramfs";
++			data = /incbin/("./initramfs-image-sama5d27-wlsom1-ek-sd.cpio.gz");
++			type = "ramdisk";
++			arch = "ARM";
++			os = "linux";
++			compression = "none";
++			hash-1 {
++				algo = "sha256";
++			};
++		};
++
+ 		fdt_isc {
+ 			description = "Device Tree blob ISC overlay";
+ 			data = /incbin/("./sama5d27_wlsom1_ek/sama5d27_wlsom1_ek_isc.dtbo");
+@@ -218,6 +230,7 @@
+ 			description = "Linux kernel and base FDT blob for SAMA5D27_WLSOM1_EK board";
+ 			kernel = "kernel";
+ 			fdt = "base_fdt";
++			ramdisk = "initramfs";
+ 		};
+ 		base_dtb {
+ 			description = "FDT blob for base SAMA5D27_WLSOM1_EK board";
+-- 
+2.34.1
+

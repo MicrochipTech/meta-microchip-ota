@@ -1,0 +1,156 @@
+diff --git a/sam9x75_curiosity.its b/sam9x75_curiosity.its
+index 53e6911..4a6e29d 100644
+--- a/sam9x75_curiosity.its
++++ b/sam9x75_curiosity.its
+@@ -23,10 +23,7 @@
+ 			load = <0x22000000>;
+ 			entry = <0x22000000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -38,10 +35,7 @@
+ 			compression = "none";
+ 			load = <0x23000000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -65,10 +59,7 @@
+ 			compression = "none";
+ 			load = <0x23100000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -80,10 +71,7 @@
+ 			compression = "none";
+ 			load = <0x23110000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -95,10 +83,7 @@
+ 			compression = "none";
+ 			load = <0x23120000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -110,10 +95,7 @@
+ 			compression = "none";
+ 			load = <0x23130000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 	};
+@@ -126,31 +108,79 @@
+ 			kernel = "kernel";
+ 			fdt = "base_fdt";
+ 			ramdisk = "initramfs";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt", "kernel", "ramdisk";
++			};
+ 		};
+ 
+ 		base_dtb {
+ 			description = "Base FDT blob for SAM9X75-Curiosity board";
+ 			fdt = "base_fdt";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		imx219 {
+ 			description = "FDT overlay blob for ISC IMX219 sensor";
+ 			fdt = "fdt_isc_imx219";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		lvds {
+ 			description = "FDT overlay blob for AC69T88A LVDS Display Panel";
+ 			fdt = "fdt_lvds_panel";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		lan8840 {
+ 			description = "FDT overlay blob for LAN8840 RGMII PHY Daughter Card";
+ 			fdt = "fdt_gmac_lan8840";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		i2s_proto {
+ 			description = "FDT overlay blob for I2S PROTO audio board";
+ 			fdt = "fdt_i2s_proto";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 	};
+ };

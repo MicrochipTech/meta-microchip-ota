@@ -10,7 +10,7 @@ software = {
                                                 type = "delta";
                                                 device = "/dev/mmcblk0p3";
                                                 properties: {
-                                                        url = "https://hostname.com/artifacts/swupdate-delta-image-sam9x75-curiosity-sd.zck";
+                                                        url = "http://hostname.com/artifacts/swupdate-delta-image-sam9x75-curiosity-sd.zck";
                                                         chain = "raw";
                                                         source = "/dev/mmcblk0p2";
                                                         zckloglevel = "error";
@@ -32,7 +32,7 @@ software = {
                                                 type = "delta";
                                                 device = "/dev/mmcblk0p2";
                                                 properties: {
-                                                        url = "https://hostname.com/artifacts/swupdate-delta-image-sam9x75-curiosity-sd.zck";
+                                                        url = "http://hostname.com/artifacts/swupdate-delta-image-sam9x75-curiosity-sd.zck";
                                                         chain = "raw";
                                                         source = "/dev/mmcblk0p3";
                                                         zckloglevel = "error";

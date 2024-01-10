@@ -5,7 +5,7 @@ LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=daf6e68539f564601a5a5869c31e5242"
 
 SRC_URI = "git://github.com/zchunk/zchunk.git;protocol=https;branch=main"
-SRCREV = "d1af5e3f07fdab124376d9aa27e2e0fa8316c7c5"
+SRCREV = "4dd91d31157ede4a1b092721d944ae2fdd161cd9"
 S = "${WORKDIR}/git"
 
 DEPENDS = " \

@@ -17,7 +17,12 @@ at91_set_rootpart=if env exists rootpart;then echo Booting from mmcblk0p${rootpa
 bootcmd=run at91_set_display; run at91_pda_detect; run at91_prepare_video_bootargs; run at91_set_bootargs; run at91_prepare_bootargs; run at91_prepare_overlays_config; run bootcmd_boot;
 pda5000test=test -n $display && test $display = 5000 && setenv display_var 'pda5' && setenv video_mode ${video_mode_pda5}
 bootcmd_boot=fatload mmc 0:1 0x24000000 sama5d27_som1_ek.itb; bootm 0x24000000#kernel_dtb${at91_overlays_config}
+altbootcmd=run bootcmd;
 bootdelay=1
+bootcount=0
+bootlimit=3
+upgrade_available=0
+ustate=0
 ethact=gmac0
 stderr=serial
 stdin=serial

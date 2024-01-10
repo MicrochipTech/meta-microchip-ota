@@ -3,7 +3,12 @@ at91_set_bootargs=run at91_set_rootpart && setenv bootargs console=ttyS0,115200 
 at91_set_rootpart=if env exists rootpart;then echo Booting from mmcblk0p${rootpart};else setenv rootpart 2;echo rootpart not set, default to ${rootpart};fi
 bootcmd=run at91_set_bootargs; run bootcmd_boot;
 bootcmd_boot=fatload mmc 0:1 ${loadaddr} ${board_name}.itb; bootm ${loadaddr}#kernel_dtb;
+altbootcmd=run bootcmd;
 bootdelay=1
+bootcount=0
+bootlimit=3
+upgrade_available=0
+ustate=0
 loadaddr=0x63000000
 ethact=gmac0
 stderr=serial

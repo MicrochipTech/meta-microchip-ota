@@ -1,0 +1,231 @@
+diff --git a/sama7g5ek.its b/sama7g5ek.its
+index 8b7af52..c7423dc 100644
+--- a/sama7g5ek.its
++++ b/sama7g5ek.its
+@@ -23,10 +23,7 @@
+ 			load = <0x62000000>;
+ 			entry = <0x62000000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -38,10 +35,7 @@
+ 			compression = "none";
+ 			load = <0x61000000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -65,10 +59,7 @@
+ 			compression = "none";
+ 			load = <0x61100000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -80,10 +71,7 @@
+ 			compression = "none";
+ 			load = <0x61200000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -95,10 +83,7 @@
+ 			compression = "none";
+ 			load = <0x61300000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -110,10 +95,7 @@
+ 			compression = "none";
+ 			load = <0x61400000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -125,10 +107,7 @@
+ 			compression = "none";
+ 			load = <0x61500000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -140,10 +119,7 @@
+ 			compression = "none";
+ 			load = <0x61600000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -155,10 +131,7 @@
+ 			compression = "none";
+ 			load = <0x61700000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 	};
+@@ -171,46 +144,118 @@
+ 			kernel = "kernel";
+ 			fdt = "base_fdt";
+ 			ramdisk = "initramfs";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt", "kernel", "ramdisk";
++			};
+ 		};
+ 
+ 		base_dtb {
+ 			description = "Base FDT blob for SAMA7G5-EK board";
+ 			fdt = "base_fdt";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		i2s0_proto {
+ 			description = "FDT overlay blob for I2S PROTO audio board";
+ 			fdt = "fdt_i2s0_proto";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		imx219 {
+ 			description = "FDT overlay blob for ISC IMX219 sensor";
+ 			fdt = "fdt_isc_imx219";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		i2s0_pcm5102a {
+ 			description = "FDT overlay blob for TI PCM5102a codec";
+ 			fdt = "fdt_i2s0_pcm5102a";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		wilc {
+ 			description = "FDT overlay blob for WILC wireless device";
+ 			fdt = "fdt_wilc3000";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		imx274 {
+ 			description = "FDT overlay blob for ISC IMX274 sensor";
+ 			fdt = "fdt_isc_imx274";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		pdmc0 {
+ 			description = "FDT overlay blob for PDM microphones";
+ 			fdt = "fdt_pdmc0";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		spi_click1 {
+ 			description = "FDT overlay blob for at25ff321a spi flash clickboard (1)";
+ 			fdt = "fdt_spi_click1";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 	};
+ };

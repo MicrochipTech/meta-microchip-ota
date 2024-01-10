@@ -1,0 +1,31 @@
+diff --git a/sam9x75_curiosity.its b/sam9x75_curiosity.its
+index ad8b39b..53e6911 100644
+--- a/sam9x75_curiosity.its
++++ b/sam9x75_curiosity.its
+@@ -45,6 +45,18 @@
+ 			};
+ 		};
+ 
++		initramfs {
++			description = "system initramfs";
++			data = /incbin/("./initramfs-image-sam9x75-curiosity-sd.cpio.gz");
++			type = "ramdisk";
++			arch = "ARM";
++			os = "linux";
++			compression = "none";
++			hash-1 {
++				algo = "sha256";
++			};
++		};
++
+ 		fdt_isc_imx219 {
+ 			description = "Device Tree blob ISC IMX219 overlay";
+ 			data = /incbin/("./sam9x75_curiosity/sam9x75_curiosity_isc_imx219.dtbo");
+@@ -113,6 +125,7 @@
+ 			description = "Linux kernel and base FDT blob for SAM9X75-Curiosity board";
+ 			kernel = "kernel";
+ 			fdt = "base_fdt";
++			ramdisk = "initramfs";
+ 		};
+ 
+ 		base_dtb {
