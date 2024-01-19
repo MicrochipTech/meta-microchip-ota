@@ -1,0 +1,5 @@
+serial=`p11tool --info "pkcs11:token=MCHP;object=device;type=private" | sed -ne 's|.*serial=\(.*\);token.*|\1|p'`
+board="board_type"
+
+# insert serial number in the identify block
+sed -i "s|{ name = \"board\"; value = \"default_board\"; }|{ name = \"board\"; value = \"$board\"; },\n\t{ name = \"serial\"; value = \"$serial\"; }|g" /etc/swupdate.cfg

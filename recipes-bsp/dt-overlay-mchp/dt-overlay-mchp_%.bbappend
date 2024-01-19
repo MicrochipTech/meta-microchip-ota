@@ -5,6 +5,10 @@ SRC_URI:append = " \
         ${@bb.utils.contains('VERIFIED_BOOT_HOOKS', '1', 'file://0002-add-verified-boot-nodes.patch', '', d)} \
 "
 
+SRC_URI:append:sam9x75-curiosity-sd = " \
+        file://0001-Enable-internal-pull-up-on-INT.patch \
+"
+
 INITRAMFS_IMAGE_NAME = "${@['${INITRAMFS_IMAGE}-${MACHINE}', ''][d.getVar('INITRAMFS_IMAGE') == '']}"
 
 do_copy_initramfs() {
@@ -55,6 +59,3 @@ do_deploy:append() {
                 install u-boot-pki.dtb ${DEPLOYDIR}/
         fi
 }
-
-
-

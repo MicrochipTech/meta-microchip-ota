@@ -22,6 +22,7 @@ IMAGE_INSTALL = " \
 	libubootenv-bin \
 	swupdate \
         swupdate-progress \
+	swupdate-www \
         curl \
 	zchunk \
 	htop \

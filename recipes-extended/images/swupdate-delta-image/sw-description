@@ -1,38 +1,15 @@
 software = {
         version = "1.0";
-
-        sam9x75-curiosity-sd = {
-                hardware-compatibility = ["1.0"];
-                stable : {
-                        copy2 : {
-                                images: ({
-                                                filename = "swupdate-delta-image-sam9x75-curiosity-sd.header";
-                                                type = "delta";
-                                                device = "/dev/mmcblk0p3";
-                                                properties: {
-                                                        url = "http://hostname.com/artifacts/swupdate-delta-image-sam9x75-curiosity-sd.zck";
-                                                        chain = "raw";
-                                                        source = "/dev/mmcblk0p2";
-                                                        zckloglevel = "error";
-                                                        /*debug-chunks = "true";*/
-                                                }
-                                        })
-                                        scripts: ({
-                                                filename = "emmcsetup.lua";
-                                                type = "lua";
-                                        })
-                                        uboot: ({
-                                                name = "rootpart";
-                                                value = "3";
-                                        })
-                        }
+        board_name = {
+                hardware-compatibility = ["board_rev"];
+                stable = {
                         copy1 : {
                                 images: ({
-                                                filename = "swupdate-delta-image-sam9x75-curiosity-sd.header";
+                                                filename = "image-name-machine.header";
                                                 type = "delta";
                                                 device = "/dev/mmcblk0p2";
                                                 properties: {
-                                                        url = "http://hostname.com/artifacts/swupdate-delta-image-sam9x75-curiosity-sd.zck";
+                                                        url = "http://hostname.com/image-name-machine.zck";
                                                         chain = "raw";
                                                         source = "/dev/mmcblk0p3";
                                                         zckloglevel = "error";
@@ -46,6 +23,28 @@ software = {
                                         uboot: ({
                                                 name = "rootpart";
                                                 value = "2";
+                                        })
+                        }
+                        copy2 : {
+                                images: ({
+                                                filename = "image-name-machine.header";
+                                                type = "delta";
+                                                device = "/dev/mmcblk0p3";
+                                                properties: {
+                                                        url = "http://hostname.com/image-name-machine.zck";
+                                                        chain = "raw";
+                                                        source = "/dev/mmcblk0p2";
+                                                        zckloglevel = "error";
+                                                        /*debug-chunks = "true";*/
+                                                }
+                                        })
+                                        scripts: ({
+                                                filename = "emmcsetup.lua";
+                                                type = "lua";
+                                        })
+                                        uboot: ({
+                                                name = "rootpart";
+                                                value = "3";
                                         })
                         }
                 }

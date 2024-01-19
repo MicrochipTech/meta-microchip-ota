@@ -3,7 +3,6 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 SRC_URI:append = " \
         file://defconfig \
 "
-VERIFIED_BOOT = "${@bb.utils.contains('VERIFIED_BOOT_HOOKS', '1', '1', '0', d)}"
 
 PACKAGE_BEFORE_PN += "${PN}-env"
 RPROVIDES:${PN}-env += "u-boot-default-env"

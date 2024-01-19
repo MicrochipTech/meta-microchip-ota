@@ -1,0 +1,29 @@
+From 772dc4243e0470e88a539861afc1d03ff1c561f3 Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Fri, 19 Jan 2024 14:40:14 -0500
+Subject: [PATCH] Enable internal pull-up on INT
+
+The LAN8840 SODIMM has a DNP on the interrupt pull-up.
+Enable the internal pull-up in the MPU
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ sam9x75_curiosity/sam9x75_curiosity_gmac_lan8840.dtso | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sam9x75_curiosity/sam9x75_curiosity_gmac_lan8840.dtso b/sam9x75_curiosity/sam9x75_curiosity_gmac_lan8840.dtso
+index 11786fc..572dc8f 100644
+--- a/sam9x75_curiosity/sam9x75_curiosity_gmac_lan8840.dtso
++++ b/sam9x75_curiosity/sam9x75_curiosity_gmac_lan8840.dtso
+@@ -84,7 +84,7 @@
+ 				 AT91_PIOB 9  AT91_PERIPH_A  AT91_PINCTRL_NONE					/* ETH_MDIO  */
+ 
+ 				 AT91_PIOB 2  AT91_PERIPH_A  AT91_PINCTRL_SLEWRATE_DIS				/* ETH_125CK */
+-				 AT91_PIOD 5  AT91_PERIPH_GPIO  AT91_PINCTRL_NONE>;				/* ETH_INT   */
++				 AT91_PIOD 5  AT91_PERIPH_GPIO  AT91_PINCTRL_PULL_UP>;				/* ETH_INT   */
+ 		};
+ 	};
+ };
+-- 
+2.34.1
+

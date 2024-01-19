@@ -19,23 +19,51 @@ SWUPDATE_IMAGES = "main-image"
 
 SWUPDATE_IMAGES_FSTYPES[main-image] = ".ext4.gz"
 
-addtask swupdate_create_delta before do_build
+SWUPDATE_DELTA_ASSET_NAME ?= "${IMAGE_NAME}-${MACHINE}"
+BOARD_NAME ?= "${MACHINE}"
+BOARD_REV ?= "1.0"
+SWUPDATE_DELTA_ASSET_URL ?= ""
 
-do_swupdate_create_delta() {
-        $(rm -f ${IMAGE_LINK_NAME}.zck)
-        $(rm -f ${IMAGE_LINK_NAME}.header)
-        $(zck --output ${IMAGE_LINK_NAME}.zck -u --chunk-hash-type sha256 ${DEPLOY_DIR_IMAGE}/${SWUPDATE_IMAGES}-${MACHINE}.ext4)
-        HSIZE=$(zck_read_header -v ${IMAGE_LINK_NAME}.zck | grep "Header size" | cut -d ':' -f 2)
-        $(dd if=${IMAGE_LINK_NAME}.zck of=${IMAGE_LINK_NAME}.header bs=1 count="${HSIZE}")
+do_update_sw_description() {
+    # update zck and header filenames if custom name is set in local.conf, otherwise use default
+    sed -i "s|image-name-machine|${SWUPDATE_DELTA_ASSET_NAME}|g" ${WORKDIR}/sw-description
 
-        # sw-description must be first in the CPIO file
-        $(ls -f sw-description emmcsetup.lua ${IMAGE_LINK_NAME}.header | cpio -ov -H crc > ${IMAGE_LINK_NAME}.swu)
+    # update board name set in local.conf
+    sed -i "s|board_name|${BOARD_NAME}|g" ${WORKDIR}/sw-description
 
-        $(cp ${IMAGE_LINK_NAME}.swu ${DEPLOY_DIR_IMAGE})
-        $(cp ${IMAGE_LINK_NAME}.zck ${DEPLOY_DIR_IMAGE})
+    # update hw compatibility version if set in local.conf
+    sed -i "s|board_rev|${BOARD_REV}|g" ${WORKDIR}/sw-description
 
-        
+    # update url to server specified in local.conf
+    if [ -z "${SWUPDATE_DELTA_ASSET_URL}" ]; then
+        bbfatal "SWUPDATE_DELTA_ASSET_URL not set!"
+    else
+        sed -i "s|\"http://hostname.com|\"${SWUPDATE_DELTA_ASSET_URL}|g" ${WORKDIR}/sw-description
+    fi
 }
 
+addtask update_sw_description before do_swupdate_create_delta
+
+do_swupdate_create_delta() {
+    $(rm -f ${SWUPDATE_DELTA_ASSET_NAME}.zck)
+    $(rm -f ${SWUPDATE_DELTA_ASSET_NAME}.header)
+    $(zck --output ${SWUPDATE_DELTA_ASSET_NAME}.zck -u --chunk-hash-type sha256 ${DEPLOY_DIR_IMAGE}/${SWUPDATE_IMAGES}-${MACHINE}.ext4)
+    HSIZE=$(zck_read_header -v ${SWUPDATE_DELTA_ASSET_NAME}.zck | grep "Header size" | cut -d ':' -f 2)
+    $(dd if=${SWUPDATE_DELTA_ASSET_NAME}.zck of=${SWUPDATE_DELTA_ASSET_NAME}.header bs=1 count="${HSIZE}")
+
+    # sw-description must be first in the CPIO file
+    $(ls -f sw-description emmcsetup.lua ${SWUPDATE_DELTA_ASSET_NAME}.header | cpio -ov -H crc > ${SWUPDATE_DELTA_ASSET_NAME}.swu)
+
+    $(cp ${SWUPDATE_DELTA_ASSET_NAME}.swu ${DEPLOY_DIR_IMAGE})
+    $(cp ${SWUPDATE_DELTA_ASSET_NAME}.zck ${DEPLOY_DIR_IMAGE})
+}
+
+addtask swupdate_create_delta before do_build
+
 do_swupdate_create_delta[dirs] = "${WORKDIR}"
-do_swupdate_create_delta[depends] = "${MAIN_MULTICONFIG}:do_image_complete"
+do_swupdate_create_delta[depends] = "${SWUPDATE_IMAGES}:do_image_complete"
+
+do_update_sw_description[dirs] = "${WORKDIR}"
+do_update_sw_description[depends] = "${SWUPDATE_IMAGES}:do_image_complete"
+
+do_swuimage[noexec] = "1"

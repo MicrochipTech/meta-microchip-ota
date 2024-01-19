@@ -49,17 +49,44 @@ I. How to build
    MC_MAIN_TMPDIR = "${TOPDIR}/tmp-${MC_MAIN_NAME}"
    BBMULTICONFIG = "${MC_INITRAMFS_NAME} ${MC_MAIN_NAME}"
    DISTRO = "poky-atmel"
-   /* If using verified boot add the next two lines, the second being the path to your
-    * private key and certificate.  See secure boot app note for more details
-    * /
-   VERIFIED_BOOT_HOOKS = "1"
-   DT_OVERLAY_MCHP_SIGN_KEYDIR = "/path/to/key_and_cert"
+
+   # Optional variables
+
+   # If using verified boot add the next two lines, the second being the path to your
+   # private key and certificate.  See secure boot app note for more details
+   #VERIFIED_BOOT_HOOKS = "1"
+   #DT_OVERLAY_MCHP_SIGN_KEYDIR = "/path/to/key_and_cert"
+
+   # Custom name and HW rev for the board - this is used in the sw-description and swupdate.cfg files
+   #BOARD_NAME = "Custom-Hardware-Name"
+   #BOARD_REV = "1.0"
+
+   # Server URL for example when using hawkbit or a generic server for delta updates
+   #SWUPDATE_SERVER_URL = "https://server.com"
+   #SWUPDATE_DELTA_ASSET_URL = "https://server.com/artifacts"
+
+   # Custom name for delta update assets (swu, header and zck files)
+   #SWUPDATE_DELTA_ASSET_NAME = "custom-name"
+
+   # Mutual TLS options for example with nginx and hawkbit.
+   # The certificate common name embedded in mTLS certificate
+   # must be the same as the id in swupdate.cfg or with the -i command line option
+   #SWUPDATE_USE_MTLS = "1"
+   #SWUPDATE_MTLS_CERT_PATH = "/path/to/certs"
+   #SWUPDATE_MTLS_CERT_NAME = "certificat-name.cert.pem"
+   #SWUPDATE_MTLS_CERT_COMMON_NAME = "COMMON-NAME"
+
+   # Use a custom CA certificate for example a self-signed CA for the update artifact server.
+   # Note that the suffix must be .crt
+   #USE_CUSTOM_CA_CERT = "1"
+   #CUSTOM_CA_CERT_PATH = "/path/to/certs"
+   #CUSTOM_CA_CERT_NAME = "ca.cert.crt"
 
 ### 4. Build multiconfig image for your target (initramfs and main image)
    ex: MACHINE=sam9x75-curiosity-sd bitbake mc:main:main-image
 
 ### 5. Add a package and build a swupdate image (or delta image)
-   For example, add the following to main.conf:
+   For example, add the following to conf/multiconfig/main.conf:
    IMAGE_INSTALL:append:sam9x75-curiosity-sd = " iperf3"
 
    Then build the swupdate (or delta) image:

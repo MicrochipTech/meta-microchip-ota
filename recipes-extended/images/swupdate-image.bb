@@ -18,9 +18,18 @@ SWUPDATE_IMAGES = "main-image"
 
 SWUPDATE_IMAGES_FSTYPES[main-image] = ".ext4.gz"
 
-do_set_image_name() {
-    sed -i "s/image-name/main-image/g" ${WORKDIR}/sw-description
+BOARD_NAME ?= "${MACHINE}"
+BOARD_REV ?= "1.0"
+
+do_update_sw_description() {
+    # update image name to match recipe
+    sed -i "s|image-name-machine.ext4.gz|${SWUPDATE_IMAGES}-${MACHINE}.ext4.gz|g" ${WORKDIR}/sw-description
+
+    # update board name if set in local.conf
+    sed -i "s|board_name|${BOARD_NAME}|g" ${WORKDIR}/sw-description
+
+    # update hw compatibility version if set in local.conf
+    sed -i "s|board_rev|${BOARD_REV}|g" ${WORKDIR}/sw-description
 }
 
-addtask set_image_name after do_unpack do_prepare_recipe_sysroot before do_swuimage
-
+addtask update_sw_description after do_unpack do_prepare_recipe_sysroot before do_swuimage

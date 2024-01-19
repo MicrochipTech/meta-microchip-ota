@@ -13,4 +13,4 @@ else
 	SWUPDATE_SURICATTA_ARGS=" "
 fi
 
-SWUPDATE_ARGS="-H sam9x60-curiosity-sd:1.0 ${selection} -f /etc/swupdate.cfg"
+SWUPDATE_ARGS="-H board_name:board_rev ${selection} -f /etc/swupdate.cfg"
