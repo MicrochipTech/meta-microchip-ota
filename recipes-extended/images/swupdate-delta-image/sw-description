@@ -5,47 +5,47 @@ software = {
                 stable = {
                         copy1 : {
                                 images: ({
-                                                filename = "image-name-machine.header";
-                                                type = "delta";
-                                                device = "/dev/mmcblk0p2";
-                                                properties: {
-                                                        url = "http://hostname.com/image-name-machine.zck";
-                                                        chain = "raw";
-                                                        source = "/dev/mmcblk0p3";
-                                                        zckloglevel = "error";
-                                                        /*debug-chunks = "true";*/
-                                                }
-                                        })
-                                        scripts: ({
-                                                filename = "emmcsetup.lua";
-                                                type = "lua";
-                                        })
-                                        uboot: ({
-                                                name = "rootpart";
-                                                value = "2";
-                                        })
+                                        filename = "image-name-machine.header";
+                                        type = "delta";
+                                        device = "/dev/mmcblk0p2";
+                                        properties: {
+                                                url = "http://hostname.com/image-name-machine.zck";
+                                                chain = "raw";
+                                                source = "/dev/mmcblk0p3";
+                                                zckloglevel = "error";
+                                                /*debug-chunks = "true";*/
+                                        }
+                                })
+                                scripts: ({
+                                        filename = "emmcsetup.lua";
+                                        type = "lua";
+                                })
+                                uboot: ({
+                                        name = "rootpart";
+                                        value = "2";
+                                })
                         }
                         copy2 : {
                                 images: ({
-                                                filename = "image-name-machine.header";
-                                                type = "delta";
-                                                device = "/dev/mmcblk0p3";
-                                                properties: {
-                                                        url = "http://hostname.com/image-name-machine.zck";
-                                                        chain = "raw";
-                                                        source = "/dev/mmcblk0p2";
-                                                        zckloglevel = "error";
-                                                        /*debug-chunks = "true";*/
-                                                }
-                                        })
-                                        scripts: ({
-                                                filename = "emmcsetup.lua";
-                                                type = "lua";
-                                        })
-                                        uboot: ({
-                                                name = "rootpart";
-                                                value = "3";
-                                        })
+                                        filename = "image-name-machine.header";
+                                        type = "delta";
+                                        device = "/dev/mmcblk0p3";
+                                        properties: {
+                                                url = "http://hostname.com/image-name-machine.zck";
+                                                chain = "raw";
+                                                source = "/dev/mmcblk0p2";
+                                                zckloglevel = "error";
+                                                /*debug-chunks = "true";*/
+                                        }
+                                })
+                                scripts: ({
+                                        filename = "emmcsetup.lua";
+                                        type = "lua";
+                                })
+                                uboot: ({
+                                        name = "rootpart";
+                                        value = "3";
+                                })
                         }
                 }
         }

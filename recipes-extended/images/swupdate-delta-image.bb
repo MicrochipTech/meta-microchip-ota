@@ -26,19 +26,19 @@ SWUPDATE_DELTA_ASSET_URL ?= ""
 
 do_update_sw_description() {
     # update zck and header filenames if custom name is set in local.conf, otherwise use default
-    sed -i "s|image-name-machine|${SWUPDATE_DELTA_ASSET_NAME}|g" ${WORKDIR}/sw-description
+    sed -i "/images: ({/{n;s/.*/\t\t\t\t\tfilename = \"${SWUPDATE_DELTA_ASSET_NAME}.header\";/}" ${WORKDIR}/sw-description
 
     # update board name set in local.conf
-    sed -i "s|board_name|${BOARD_NAME}|g" ${WORKDIR}/sw-description
+    sed -i "/version =/{n;s/.*/\t${BOARD_NAME} = {/}" ${WORKDIR}/sw-description
 
     # update hw compatibility version if set in local.conf
-    sed -i "s|board_rev|${BOARD_REV}|g" ${WORKDIR}/sw-description
+    sed -i "s|hardware-compatibility =.*|hardware-compatibility = [\"${BOARD_REV}\"];|" ${WORKDIR}/sw-description
 
     # update url to server specified in local.conf
     if [ -z "${SWUPDATE_DELTA_ASSET_URL}" ]; then
         bbfatal "SWUPDATE_DELTA_ASSET_URL not set!"
     else
-        sed -i "s|\"http://hostname.com|\"${SWUPDATE_DELTA_ASSET_URL}|g" ${WORKDIR}/sw-description
+        sed -i "s|url =.*|url = \"${SWUPDATE_DELTA_ASSET_URL}/${SWUPDATE_DELTA_ASSET_NAME}.zck\";|" ${WORKDIR}/sw-description
     fi
 }
 

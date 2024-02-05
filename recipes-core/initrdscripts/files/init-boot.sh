@@ -16,10 +16,13 @@ fail() {
 
 # do initial setup
 init_system() {
-    mkdir -p /proc /sys /run /var/run
+    mkdir -p /proc /sys /run /run/media /var/run
     mount -t proc proc /proc
     mount -t sysfs sysfs /sys
     mount -t devtmpfs none /dev
+
+    mkdir -p /dev/shm
+    mount -t tmpfs shm /dev/shm
 
     mdev -s
 

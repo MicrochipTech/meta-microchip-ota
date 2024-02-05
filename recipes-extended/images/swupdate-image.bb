@@ -22,14 +22,15 @@ BOARD_NAME ?= "${MACHINE}"
 BOARD_REV ?= "1.0"
 
 do_update_sw_description() {
-    # update image name to match recipe
-    sed -i "s|image-name-machine.ext4.gz|${SWUPDATE_IMAGES}-${MACHINE}.ext4.gz|g" ${WORKDIR}/sw-description
+    # update hw compatibility version if set in local.conf
+    sed -i "s|hardware-compatibility =.*|hardware-compatibility = [\"${BOARD_REV}\"];|" ${WORKDIR}/sw-description
 
     # update board name if set in local.conf
-    sed -i "s|board_name|${BOARD_NAME}|g" ${WORKDIR}/sw-description
+    sed -i "/version =/{n;s/.*/\t${BOARD_NAME} = {/}" ${WORKDIR}/sw-description
 
-    # update hw compatibility version if set in local.conf
-    sed -i "s|board_rev|${BOARD_REV}|g" ${WORKDIR}/sw-description
+    # update filenames
+    sed -i "/images: ({/{n;s/.*/\t\t\t\t\tfilename = \"${SWUPDATE_IMAGES}-${MACHINE}.ext4.gz\";/}" ${WORKDIR}/sw-description
+    sed -i "s|swupdate_get_sha256(.*|swupdate_get_sha256(${SWUPDATE_IMAGES}-${MACHINE}.ext4.gz)\";|" ${WORKDIR}/sw-description
 }
 
 addtask update_sw_description after do_unpack do_prepare_recipe_sysroot before do_swuimage

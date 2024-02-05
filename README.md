@@ -61,6 +61,9 @@ I. How to build
    #BOARD_NAME = "Custom-Hardware-Name" \
    #BOARD_REV = "1.0"
 
+   #### Suricatta daemon ID value
+   #SWUPDATE_SURICATTA_ID = "Custom-Name"
+
    #### Server URL for example when using hawkbit or a generic server for delta updates
    #SWUPDATE_SERVER_URL = "https://server.com" \
    #SWUPDATE_DELTA_ASSET_URL = "https://server.com/artifacts"
@@ -68,11 +71,10 @@ I. How to build
    #### Custom name for delta update assets (swu, header and zck files)
    #SWUPDATE_DELTA_ASSET_NAME = "custom-name"
 
-   #### Mutual TLS options for example with nginx and hawkbit.  The certificate common name embedded in mTLS certificate must be the same as the id in swupdate.cfg or with the -i command line option
+   #### Mutual TLS options for example with nginx and hawkbit.  The certificate common name embedded in mTLS certificate must be the same as the id (SWUPDATE_SURICATTA_ID) in swupdate.cfg or with the -i command line option
    #SWUPDATE_USE_MTLS = "1" \
    #SWUPDATE_MTLS_CERT_PATH = "/path/to/certs" \
    #SWUPDATE_MTLS_CERT_NAME = "certificat-name.cert.pem" \
-   #SWUPDATE_MTLS_CERT_COMMON_NAME = "COMMON-NAME"
 
    #### Use a custom CA certificate for example a self-signed CA for the update artifact server.  Note that the suffix must be .crt
    #USE_CUSTOM_CA_CERT = "1" \

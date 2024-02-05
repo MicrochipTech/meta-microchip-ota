@@ -4,8 +4,7 @@ software = {
                 hardware-compatibility = ["board_rev"];
                 stable = {
                         copy1: {
-                                images: (
-                                {
+                                images: ({
                                         filename = "image-name-machine.ext4.gz";
                                         type = "raw";
                                         sha256 = "$swupdate_get_sha256(image-name-machine.ext4.gz)";
@@ -23,8 +22,7 @@ software = {
                                 });
                         }
                         copy2: {
-                                images: (
-                                {
+                                images: ({
                                         filename = "image-name-machine.ext4.gz";
                                         type = "raw";
                                         sha256 = "$swupdate_get_sha256(image-name-machine.ext4.gz)";
