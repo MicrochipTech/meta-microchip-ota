@@ -5,6 +5,7 @@
 ROOT_MOUNT=""
 CMDLINE=""
 INSTALL_FW=""
+CONSOLE="/dev/console"
 
 # exec sh here is for debug and not a secure solution
 # as shell access should not be allowed in the initramfs
@@ -56,6 +57,12 @@ boot_initramfs() {
     echo "/****************** Booting initramfs for firmware install *******************/"
     echo "/*****************************************************************************/"
     echo ""
+
+    # we need mdev to be run to get the uboot environment.
+    # This has to be done prior to deciding to boot the initramfs or the main disk image
+    # if initramfs is booted then mdev -s is called again invoking automount which will step on
+    # anything already mounted in /run/media for some reason (mdev-mount.sh implies it checks for this condition)
+    umount /run/media/*
     exec /sbin/init
 }
 

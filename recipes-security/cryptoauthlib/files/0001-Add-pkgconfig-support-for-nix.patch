@@ -1,0 +1,44 @@
+From bdee4d59dacb5ad97f0da5ae03b00f9ebb768e0c Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Wed, 20 Mar 2024 17:53:54 -0400
+Subject: [PATCH] Add pkgconfig support for *nix
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ cmake/config_install.cmake |  5 +++++
+ cmake/libcryptoauth.pc.in  | 10 ++++++++++
+ 2 files changed, 15 insertions(+)
+ create mode 100644 cmake/libcryptoauth.pc.in
+
+diff --git a/cmake/config_install.cmake b/cmake/config_install.cmake
+index d13931f4c..60b823513 100644
+--- a/cmake/config_install.cmake
++++ b/cmake/config_install.cmake
+@@ -25,3 +25,8 @@ install(CODE "
+         endif()
+         ")
+ endif()
++
++if (UNIX)
++        configure_file(cmake/libcryptoauth.pc.in libcryptoauth.pc @ONLY)
++        install(FILES ${CMAKE_BINARY_DIR}/libcryptoauth.pc DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}/pkgconfig")
++endif (UNIX)
+diff --git a/cmake/libcryptoauth.pc.in b/cmake/libcryptoauth.pc.in
+new file mode 100644
+index 000000000..5e92c30e0
+--- /dev/null
++++ b/cmake/libcryptoauth.pc.in
+@@ -0,0 +1,10 @@
++libdir=@CMAKE_INSTALL_FULL_LIBDIR@
++includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
++
++Name: libcryptoauth
++Version: @PROJECT_VERSION@
++Description: @PROJECT_DESCRIPTION@
++URL: https://github.com/MicrochipTech/cryptoauthlib.git
++Requires:
++Libs: -L${libdir} -lcryptoauth
++Cflags: -I${includedir} -I${includedir}/cryptoauthlib
+-- 
+2.34.1
+

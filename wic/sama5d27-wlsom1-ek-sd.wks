@@ -5,5 +5,7 @@
 part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=vfat --label boot --active --align 4 --size 32
 part / --source rootfs --ondisk mmcblk0 --fstype=ext4 --label rootfs_A  --align 4
 part / --source rootfs --ondisk mmcblk0 --fstype=ext4 --label rootfs_B  --align 4
+part --ondisk mmcblk0 --fstype=ext4 --size=5M --label delta_A --align 4
+part --ondisk mmcblk0 --fstype=ext4 --size=5M --label delta_B --align 4
 
 bootloader --ptable msdos

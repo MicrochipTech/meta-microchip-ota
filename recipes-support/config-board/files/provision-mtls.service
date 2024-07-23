@@ -1,0 +1,15 @@
+[Unit]
+Description=Do mTLS certificate exchange using ECC608 serial number
+Requires=first-boot-complete.target provision-qspi.service opt-swupdate.mount network.target network-online.target time-sync.target nss-lookup.target
+Before=swupdate.service
+After=provision-qspi.service opt-swupdate.mount avahi-daemon.service network.target network-online.target time-sync.target nss-lookup.target
+ConditionFirstBoot=yes
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/provision-mtls.sh
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

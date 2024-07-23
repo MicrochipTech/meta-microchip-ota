@@ -1,0 +1,11 @@
+[Unit]
+Description=EGT SWUpdate Training service
+After=multi-user.target
+
+[Service]
+Type=exec
+ExecStart=/opt/app/egt-swupdate
+ExecStop=killall egt-swupdate
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,59 @@
+From 82c9134f121ada6443e33f03197482d98ba2c309 Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Tue, 23 Jul 2024 13:46:04 -0400
+Subject: [PATCH] add splash screen support
+
+Adds a boot splash from u-boot
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ .../sama5d27_wlsom1_ek/sama5d27_wlsom1_ek.c   | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/board/atmel/sama5d27_wlsom1_ek/sama5d27_wlsom1_ek.c b/board/atmel/sama5d27_wlsom1_ek/sama5d27_wlsom1_ek.c
+index 6e41017af1..b9745ff958 100644
+--- a/board/atmel/sama5d27_wlsom1_ek/sama5d27_wlsom1_ek.c
++++ b/board/atmel/sama5d27_wlsom1_ek/sama5d27_wlsom1_ek.c
+@@ -17,11 +17,29 @@
+ #include <asm/arch/clk.h>
+ #include <asm/arch/gpio.h>
+ #include <asm/arch/sama5d2.h>
++#include <splash.h>
+ 
+ extern void at91_pda_detect(void);
+ 
+ DECLARE_GLOBAL_DATA_PTR;
+ 
++#ifdef CONFIG_SPLASH_SCREEN
++static struct splash_location sama5d27_wlsom1_ek_splash_locations[] = {
++	{
++		.name = "mmc_fs",
++		.storage = SPLASH_STORAGE_MMC,
++		.flags = SPLASH_STORAGE_FS,
++		.devpart = "0:1",
++	},
++};
++
++int splash_screen_prepare(void)
++{
++	return splash_source_load(sama5d27_wlsom1_ek_splash_locations,
++				  ARRAY_SIZE(sama5d27_wlsom1_ek_splash_locations));
++}
++#endif
++
+ static void rgb_leds_init(void)
+ {
+ 	atmel_pio4_set_pio_output(AT91_PIO_PORTA, 6, 0);	/* LED RED */
+@@ -33,7 +51,9 @@ static void rgb_leds_init(void)
+ int board_late_init(void)
+ {
+ #ifdef CONFIG_VIDEO
++#ifndef CONFIG_SPLASH_SCREEN
+ 	at91_video_show_board_info();
++#endif
+ #endif
+ 	at91_pda_detect();
+ 	return 0;
+-- 
+2.34.1
+

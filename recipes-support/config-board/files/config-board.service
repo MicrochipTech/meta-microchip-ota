@@ -1,0 +1,13 @@
+[Unit]
+Description=Sets hostname from ECC608 Serial number
+Requires=first-boot-complete.target opt-swupdate.mount opt-app.mount opt-data.mount avahi-daemon.service
+Before=first-boot-complete.target systemd-user-session.service avahi-daemon.service
+After=opt-app.mount opt-data.mount
+ConditionFirstBoot=yes
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/config-board.sh
+
+[Install]
+WantedBy=multi-user.target

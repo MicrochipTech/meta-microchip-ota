@@ -1,0 +1,78 @@
+software = {
+        version = "1.0";
+        reboot = false;
+        board_name = {
+                hardware-compatibility = ["board_rev"];
+                embedded-script = "
+                        require (\"swupdate\")
+
+                        function getSrcAndDstPartitions(part)
+                                local mountUnitFilePath = string.format('/run/media/mmcblk0p%s/usr/lib/systemd/system/opt-data.mount', part)
+                                local mountUnitFile = io.open(mountUnitFilePath, 'r')
+                                local content = mountUnitFile:read '*a'
+                                mountUnitFile:close()
+
+                                local activeMount = string.match(content, 'What=(.-)\\n')
+
+                                swupdate.trace(\"active app data partition is \" .. activeMount)
+
+                                if activeMount == '/dev/mmcblk0p5' then
+                                        return '/dev/mmcblk0p5', '/dev/mmcblk0p6'
+                                else
+                                        return '/dev/mmcblk0p6', '/dev/mmcblk0p5'
+                                end
+                        end
+
+                        function configDeltaUpdate(image)
+                                for k,l in pairs(image) do
+                                        swupdate.trace(\"image[\" .. tostring(k) .. \"] = \" .. tostring(l))
+                                end
+
+                                local rootpart
+
+                                --[[ source partitions is first value, destination is second ]]
+                                local source
+                                local destination
+        
+                                rootpart = swupdate.get_bootenv('rootpart')
+
+                                if rootpart == nil then
+                                        rootpart = 2
+                                end
+
+                                source, destination = getSrcAndDstPartitions(rootpart)
+
+                                image.device = destination
+                                image.properties.source = source
+
+                                swupdate.trace(\"image table after setting app data partition\")
+                                for k,l in pairs(image) do
+                                        swupdate.trace(\"image[\" .. tostring(k) .. \"] = \" .. tostring(l))
+                                end
+
+                                return true, image
+                        end
+                "
+                scripts: ({
+                        filename = "deltaupdate.lua";
+                        type = "lua";
+                        sha256 = "$swupdate_get_sha256(deltaupdate.lua)";
+                })
+                images: ({
+                        filename = "image-name-machine.header";
+                        type = "delta";
+                        sha256 = "$swupdate_get_sha256(image-name-machine.header)";
+                        device = "/dev/mmcblk0p5";
+                        name = "Application";
+                        version = "1.0.0";
+                        hook = "configDeltaUpdate";
+                        properties: {
+                                url = "http://hostname.com/image-name-machine.zck";
+                                chain = "raw";
+                                source = "/dev/mmcblk0p6";
+                                zckloglevel = "error";
+                                /*debug-chunks = "true";*/
+                        }
+                })
+        }
+}

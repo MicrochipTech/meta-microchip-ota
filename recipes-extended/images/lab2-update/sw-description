@@ -1,0 +1,43 @@
+software = {
+        version = "1.0";
+        reboot = false;
+        board_name = {
+                hardware-compatibility = ["board_rev"];
+                stable = {
+                        copy1: {
+                                scripts: ({
+                                        filename = "qspiupdate.lua";
+                                        type = "lua";
+                                        sha256 = "$swupdate_get_sha256(qspiupdate.lua)";
+                                });
+                                images: ({
+                                        filename = "image-name-machine.squashfs";
+                                        type = "flash";
+                                        sha256 = "$swupdate_get_sha256(image-name-machine.squashfs)";
+                                        device = "/dev/mtd1";
+                                        name = "Application";
+                                        version = "1.0.0";
+                                        install-if-higher = true;
+                                        /*installed-directly = true;*/
+                                });
+                        }
+                        copy2: {
+                                scripts: ({
+                                        filename = "qspiupdate.lua";
+                                        type = "lua";
+                                        sha256 = "$swupdate_get_sha256(qspiupdate.lua)";
+                                });
+                                images: ({
+                                        filename = "image-name-machine.squashfs";
+                                        type = "flash";
+                                        sha256 = "$swupdate_get_sha256(image-name-machine.squashfs)";
+                                        device = "/dev/mtd1";
+                                        name = "Application";
+                                        version = "1.0.0";
+                                        install-if-higher = true;
+                                        /*installed-directly = true;*/
+                                });
+                        }
+                }
+        }
+}

@@ -1,0 +1,13 @@
+[Unit]
+Description=SWUpdate daemon
+Documentation=https://github.com/sbabic/swupdate
+Documentation=https://sbabic.github.io/swupdate
+After=first-boot-complete.target
+
+[Service]
+Type=notify
+ExecStart=@LIBDIR@/swupdate/swupdate.sh
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target

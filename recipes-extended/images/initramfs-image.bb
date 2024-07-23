@@ -14,12 +14,27 @@ IMAGE_INSTALL:append = " \
         p11-kit \
         zchunk \
         swupdate \
-        swupdate-www \
-        i2c-tools \
-        avahi-daemon \
+        swupdate-progress \
+        swupdate-tools-ipc \
+        wpa-supplicant \
+        mchp-wireless-firmware \
+        wireless-regdb-static \
+        kernel-modules \
+        config-board \
+        psplash \
+        lua \
+        curl \
+        ifplugd \
+        ntp \
+        resolvconf \
 "
 
-IMAGE_FEATURES = "debug-tweaks"
+IMAGE_INSTALL:remove = " \
+        avahi-daemon \
+        avahi-utils \
+"
+
+#IMAGE_FEATURES = "debug-tweaks"
 IMAGE_LINGUAS = ""
 
 PACKAGE_EXCLUDE = "kernel-image-*"
@@ -32,4 +47,3 @@ IMAGE_ROOTFS_EXTRA_SPACE = "0"
 inherit core-image
 
 IMAGE_FSTYPES = "cpio.xz cpio.gz cpio"
-

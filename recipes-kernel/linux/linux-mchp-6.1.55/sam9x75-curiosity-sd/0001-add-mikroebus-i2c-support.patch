@@ -1,5 +1,15 @@
+From 9161fc71b5d54c5d07979ea211efd10404e1953a Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Tue, 23 Jul 2024 13:54:31 -0400
+Subject: [PATCH] add mikroebus i2c support
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ arch/arm/boot/dts/at91-sam9x75_curiosity.dts | 23 ++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
 diff --git a/arch/arm/boot/dts/at91-sam9x75_curiosity.dts b/arch/arm/boot/dts/at91-sam9x75_curiosity.dts
-index dedb53630bc3..976de6a76a86 100644
+index 7ed6e9c6c0e1..a8d3fac46291 100644
 --- a/arch/arm/boot/dts/at91-sam9x75_curiosity.dts
 +++ b/arch/arm/boot/dts/at91-sam9x75_curiosity.dts
 @@ -16,6 +16,7 @@ / {
@@ -10,7 +20,7 @@ index dedb53630bc3..976de6a76a86 100644
  	};
  
  	chosen {
-@@ -101,6 +102,22 @@ &ehci0 {
+@@ -109,6 +110,22 @@ &ehci0 {
  	status = "okay";
  };
  
@@ -33,7 +43,7 @@ index dedb53630bc3..976de6a76a86 100644
  &flx6 {
  	atmel,flexcom-mode = <ATMEL_FLEXCOM_MODE_TWI>;
  	status = "okay";
-@@ -280,6 +297,12 @@ pinctrl_flx6_twi_default: flx6-twi-default {
+@@ -303,6 +320,12 @@ pinctrl_flx6_twi_default: flx6-twi-default {
  				<AT91_PIOA 24 AT91_PERIPH_A AT91_PINCTRL_PULL_UP
  				 AT91_PIOA 25 AT91_PERIPH_A AT91_PINCTRL_PULL_UP>;
  		};
@@ -46,3 +56,6 @@ index dedb53630bc3..976de6a76a86 100644
  	};
  
  	gpio-keys {
+-- 
+2.34.1
+

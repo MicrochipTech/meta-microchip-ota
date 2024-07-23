@@ -1,5 +1,6 @@
 software = {
         version = "1.0";
+        reboot = false;
         board_name = {
                 hardware-compatibility = ["board_rev"];
                 stable = {
@@ -10,11 +11,14 @@ software = {
                                         sha256 = "$swupdate_get_sha256(image-name-machine.ext4.gz)";
                                         compressed = "zlib";
                                         device = "/dev/mmcblk0p2";
+                                        name = "rootfs";
+                                        version = "1.0";
                                         installed-directly = true;
                                 });
                                 scripts: ({
-                                        filename = "emmcsetup.lua";
+                                        filename = "provisioning.lua";
                                         type = "lua";
+                                        sha256 = "$swupdate_get_sha256(provisioning.lua)";
                                 });
                                 uboot: ({
                                         name = "rootpart";
@@ -27,16 +31,19 @@ software = {
                                         type = "raw";
                                         sha256 = "$swupdate_get_sha256(image-name-machine.ext4.gz)";
                                         compressed = "zlib";
-                                        device = "/dev/mmcblk0p3";
+                                        device = "/dev/mmcblk0p2";
+                                        name = "rootfs";
+                                        version = "1.0";
                                         installed-directly = true;
                                 });
                                 scripts: ({
-                                        filename = "emmcsetup.lua";
+                                        filename = "provisioning.lua";
                                         type = "lua";
+                                        sha256 = "$swupdate_get_sha256(provisioning.lua)";
                                 });
                                 uboot: ({
                                         name = "rootpart";
-                                        value = "3";
+                                        value = "2";
                                 });
                         }
                 }

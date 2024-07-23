@@ -1,0 +1,10 @@
+[Unit]
+Description=Persistent Data Storage
+
+[Mount]
+What=/dev/mtdblock0
+Where=/opt/swupdate
+Type=jffs2
+
+[Install]
+WantedBy=multi-user.target

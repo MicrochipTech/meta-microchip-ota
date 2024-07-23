@@ -1,0 +1,10 @@
+[Unit]
+Description=A Super Cool App partition
+
+[Mount]
+What=/dev/mtdblock1
+Where=/opt/app
+Type=squashfs
+
+[Install]
+WantedBy=multi-user.target

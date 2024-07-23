@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<entry>
+  <title>A Super Cool App</title>
+  <arg>/opt/app/egt-swupdate</arg>
+  <description></description>
+  <link rel="enclosure" type="image/png" href="egt-swupdate.png" />
+</entry>

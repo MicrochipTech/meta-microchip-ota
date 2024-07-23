@@ -1,0 +1,49 @@
+From 10f63bfc51160177e264bf0b7d2cd357c6355a81 Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Mon, 22 Jul 2024 14:44:52 -0400
+Subject: [PATCH] Fix hawkbit report when no reboot is set
+
+Source attribute is reset prior to processing the case when an update
+source is from Hawkbit and reboot is false
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ core/stream_interface.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
+
+diff --git a/core/stream_interface.c b/core/stream_interface.c
+index eecc672c..e3b9b60d 100644
+--- a/core/stream_interface.c
++++ b/core/stream_interface.c
+@@ -730,14 +730,6 @@ void *network_initializer(void *data)
+ 		swupdate_remove_directory(SCRIPTS_DIR_SUFFIX);
+ 		swupdate_remove_directory(DATADST_DIR_SUFFIX);
+ #endif
+-
+-		pthread_mutex_lock(&stream_mutex);
+-		inst.status = IDLE;
+-		inst.req.source = SOURCE_UNKNOWN;
+-		pthread_mutex_unlock(&stream_mutex);
+-		TRACE("Main thread sleep again !");
+-		notify(IDLE, RECOVERY_NO_ERROR, INFOLEVEL, "Waiting for requests...");
+-
+ 		/*
+ 		 * Last step, if no restart is required,
+ 		 * SWUpdate can send automatically the feedback.
+@@ -768,7 +760,12 @@ void *network_initializer(void *data)
+ 			ipc_send_cmd(&msg);
+ 		}
+ 
+-
++		pthread_mutex_lock(&stream_mutex);
++		inst.status = IDLE;
++		inst.req.source = SOURCE_UNKNOWN;
++		pthread_mutex_unlock(&stream_mutex);
++		TRACE("Main thread sleep again !");
++		notify(IDLE, RECOVERY_NO_ERROR, INFOLEVEL, "Waiting for requests...");
+ 	}
+ 
+ 	pthread_exit((void *)0);
+-- 
+2.34.1
+

@@ -1,47 +1,16 @@
 SUMMARY = "Main Image"
-
 LICENSE = "MIT"
-
-IMAGE_FEATURES:append = " ssh-server-openssh"
+PR = "r1"
 
 IMAGE_FSTYPES:append = " ext4 ext4.gz wic.bz2 wic.bmap"
 
 WKS_FILES = "${MACHINE}.wks"
 
-IMAGE_INSTALL = " \
-	packagegroup-core-boot \
-	kernel-modules \
-	openssh \
-	openssl \
-	openssl-engines \
-	avahi-daemon \
-	i2c-tools \
-	cryptoauthlib \
-	python3-cryptoauthlib \
-	p11-kit \
-	libubootenv-bin \
-	swupdate \
-        swupdate-progress \
-	swupdate-www \
-        curl \
-	zchunk \
-	htop \
-	bash-completion \
-	libegt \
-        noto-fonts \
-        liberation-fonts \
-        libplanes \
-        libdrm \
-"
+require main-image.inc
 
-IMAGE_INSTALL:remove:sama7g5 = " \
-	libegt \
-        noto-fonts \
-        liberation-fonts \
-        libplanes \
-        libdrm \
-"
+remove_systemd_conf_files () {
+        rm ${IMAGE_ROOTFS}/lib/systemd/network/80-wired.network
+        rm ${IMAGE_ROOTFS}/etc/systemd/network/eth.network
+}
 
-inherit core-image
-
-do_image[mcdepends] = "mc:${MAIN_MULTICONFIG}:${INITRAMFS_MULTICONFIG}:initramfs-image:do_image_complete"
+ROOTFS_POSTPROCESS_COMMAND:append = "remove_systemd_conf_files;"

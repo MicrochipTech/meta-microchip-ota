@@ -9,6 +9,10 @@ SRC_URI:append:sam9x75-curiosity-sd = " \
         file://0001-Enable-internal-pull-up-on-INT.patch \
 "
 
+SRC_URI:append:sama5d2 = " \
+        file://0001-Add-reserved-memory-for-framebuffer-splash.patch \
+"
+
 INITRAMFS_IMAGE_NAME = "${@['${INITRAMFS_IMAGE}-${MACHINE}', ''][d.getVar('INITRAMFS_IMAGE') == '']}"
 
 do_copy_initramfs() {

@@ -1,0 +1,53 @@
+From 82db0256e4813b65ba627bafa94e121df303b2a4 Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Tue, 23 Jul 2024 13:19:48 -0400
+Subject: [PATCH] Add reserved memory for framebuffer splash
+
+This maintains the splash screen until the LCDC driver is initialized.
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ sama5d27_wlsom1_ek/sama5d27_wlsom1_ek_pda5.dtso | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/sama5d27_wlsom1_ek/sama5d27_wlsom1_ek_pda5.dtso b/sama5d27_wlsom1_ek/sama5d27_wlsom1_ek_pda5.dtso
+index 5b7a0cc..8fea7d9 100644
+--- a/sama5d27_wlsom1_ek/sama5d27_wlsom1_ek_pda5.dtso
++++ b/sama5d27_wlsom1_ek/sama5d27_wlsom1_ek_pda5.dtso
+@@ -39,6 +39,7 @@
+ 
+ &hlcdc {
+ 	status = "okay";
++	memory-region = <&display_reserved>;
+ 
+ 	hlcdc-display-controller {
+ 		pinctrl-names = "default";
+@@ -59,7 +60,6 @@
+ 	};
+ };
+ 
+-
+ &pioA {
+ 	pinctrl_qt1070_irq: pinctrl_qt1070_irq {
+ 		pinmux = <PIN_PA17__GPIO>;
+@@ -111,6 +111,17 @@
+ 
+ &{/} {
+ 	model = "Microchip SAMA5D27 WLSOM1 EK TM5000";
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		display_reserved: framebuffer@2FE00000 {
++				reg = <0x2FE00000 0x100000>;
++		};
++	};
++
+ 	backlight: backlight {
+ 		compatible = "pwm-backlight";
+ 		pwms = <&hlcdc_pwm 0 50000 0>;
+-- 
+2.34.1
+

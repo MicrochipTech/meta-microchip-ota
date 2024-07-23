@@ -1,5 +1,5 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SPLASH_IMAGES = " \
-        file://microchip_logo.png;outsuffix=default \
+        file://Masters2024.png;outsuffix=default \
 "

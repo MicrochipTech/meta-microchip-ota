@@ -8,6 +8,7 @@ EXTRA_OECMAKE += " \
 
 SRC_URI:append:${MACHINE} = " \
     file://0.conf \
+    file://0001-Add-pkgconfig-support-for-nix.patch \
 "
 
 do_install:append () {
@@ -22,4 +23,5 @@ do_install:append:${MACHINE} () {
 
 FILES:${PN}:append = " \
     ${bindir}/cryptoauth_test \
+    ${libdir}/pkgconfig/libcryptoauth.pc \
 "

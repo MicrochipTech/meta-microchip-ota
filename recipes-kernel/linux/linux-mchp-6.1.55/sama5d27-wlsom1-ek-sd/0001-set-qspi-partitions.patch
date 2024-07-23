@@ -1,0 +1,45 @@
+From 27e3663b31b698447575332c5bdc973e52a2bece Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Tue, 23 Jul 2024 13:56:51 -0400
+Subject: [PATCH] set qspi partitions
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ arch/arm/boot/dts/at91-sama5d27_wlsom1_ek.dts | 20 ++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/at91-sama5d27_wlsom1_ek.dts b/arch/arm/boot/dts/at91-sama5d27_wlsom1_ek.dts
+index 4411289fad94..02e1a9329ac8 100644
+--- a/arch/arm/boot/dts/at91-sama5d27_wlsom1_ek.dts
++++ b/arch/arm/boot/dts/at91-sama5d27_wlsom1_ek.dts
+@@ -190,8 +190,26 @@ &pwm0 {
+ &qspi1 {
+ 	status = "okay";
+ 
+-	qspi1_flash: flash@0 {
++	qspi1_nor_flash: qspi_nor_flash@0 {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <80000000>;
++		spi-rx-bus-width = <4>;
++		spi-tx-bus-width = <4>;
++		m25p,fast-read;
+ 		status = "okay";
++
++		persistent_data@0 {
++			label = "Persistent Data";
++			reg = <0x0 0x100000>;
++		};
++
++		app@100000 {
++			label = "App Data";
++			reg = <0x100000 0x700000>;
++		};
+ 	};
+ };
+ 
+-- 
+2.34.1
+

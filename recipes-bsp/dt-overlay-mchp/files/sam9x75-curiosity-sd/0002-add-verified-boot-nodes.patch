@@ -1,5 +1,15 @@
+From 7c7f9693f99ec528d4b8ec52a8330c634bc7b440 Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Tue, 23 Jul 2024 13:34:09 -0400
+Subject: [PATCH 2/2] Add verified boot nodes
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ sam9x75_curiosity.its | 125 ++++++++++++++++++++++++++++++------------
+ 1 file changed, 89 insertions(+), 36 deletions(-)
+
 diff --git a/sam9x75_curiosity.its b/sam9x75_curiosity.its
-index 53e6911..4a6e29d 100644
+index 77061c8..3aece1d 100644
 --- a/sam9x75_curiosity.its
 +++ b/sam9x75_curiosity.its
 @@ -23,10 +23,7 @@
@@ -64,6 +74,18 @@ index 53e6911..4a6e29d 100644
  
 @@ -110,10 +95,7 @@
  			compression = "none";
+ 			load = <0x23120000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -125,10 +107,7 @@
+ 			compression = "none";
  			load = <0x23130000>;
  			hash-1 {
 -				algo = "crc32";
@@ -73,8 +95,32 @@ index 53e6911..4a6e29d 100644
 +				algo = "sha256";
  			};
  		};
+ 
+@@ -140,10 +119,7 @@
+ 			compression = "none";
+ 			load = <0x23140000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
+ 
+@@ -155,10 +131,7 @@
+ 			compression = "none";
+ 			load = <0x23150000>;
+ 			hash-1 {
+-				algo = "crc32";
+-			};
+-			hash-2 {
+-				algo = "sha1";
++				algo = "sha256";
+ 			};
+ 		};
  	};
-@@ -126,31 +108,79 @@
+@@ -171,51 +144,131 @@
  			kernel = "kernel";
  			fdt = "base_fdt";
  			ramdisk = "initramfs";
@@ -127,9 +173,35 @@ index 53e6911..4a6e29d 100644
 +			};
  		};
  
+ 		ksz9131 {
+ 			description = "FDT overlay blob for KSZ9131 RGMII PHY Daughter Card";
+ 			fdt = "fdt_gmac_lan8840";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
  		lan8840 {
  			description = "FDT overlay blob for LAN8840 RGMII PHY Daughter Card";
  			fdt = "fdt_gmac_lan8840";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+ 		ksz9563 {
+ 			description = "FDT overlay blob for KSZ9563 RGMII switch Daughter Card";
+ 			fdt = "fdt_gmac_ksz9563";
 +			hash-1 {
 +				algo = "sha256";
 +			};
@@ -152,5 +224,34 @@ index 53e6911..4a6e29d 100644
 +				sign-images = "fdt";
 +			};
  		};
+ 
+ 		mipi {
+ 			description = "FDT overlay blob for AC40T08A MPU32 MIPI Display Panel";
+ 			fdt = "fdt_mipi_panel";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+ 		};
+ 
+                 pwm {
+                         description = "FDT overlay blob for PWM";
+                         fdt = "fdt_pwm";
++			hash-1 {
++				algo = "sha256";
++			};
++			signature-1 {
++				algo = "sha256,rsa4096";
++				key-name-hint = "dev";
++				sign-images = "fdt";
++			};
+                 };
  	};
  };
+-- 
+2.34.1
+

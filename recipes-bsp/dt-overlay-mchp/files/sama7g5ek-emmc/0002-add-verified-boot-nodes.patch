@@ -1,3 +1,13 @@
+From c1aa2ce4f1d7151f52bb99bcb1f516c55b6f2ebe Mon Sep 17 00:00:00 2001
+From: Matt Wood <matt.wood@microchip.com>
+Date: Tue, 23 Jul 2024 13:41:22 -0400
+Subject: [PATCH 2/2] add verified boot nodes
+
+Signed-off-by: Matt Wood <matt.wood@microchip.com>
+---
+ sama7g5ek.its | 117 ++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 81 insertions(+), 36 deletions(-)
+
 diff --git a/sama7g5ek.its b/sama7g5ek.its
 index 8b7af52..c7423dc 100644
 --- a/sama7g5ek.its
@@ -229,3 +239,6 @@ index 8b7af52..c7423dc 100644
  		};
  	};
  };
+-- 
+2.34.1
+

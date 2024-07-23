@@ -2,6 +2,8 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI:append = " \
         file://defconfig \
+        file://0001-add-splash-screen-support.patch \
+        file://Masters2024.bmp \
 "
 
 PACKAGE_BEFORE_PN += "${PN}-env"
@@ -15,6 +17,10 @@ do_configure:prepend() {
 # dt-overlay-mchp will add the public key to the control dtb, concatenate the dtb and binary
 # and then sign the FIT image
 
+do_configure:append() {
+        gzip -c ${WORKDIR}/Masters2024.bmp > ${WORKDIR}/Masters2024.bmp.gz
+}
+
 do_deploy:append() {
         if [ "${VERIFIED_BOOT_HOOKS}" -eq "1" ]; then
                 install ${S}/${UBOOT_NODTB_BINARY} ${DEPLOYDIR}/${UBOOT_NODTB_IMAGE}
@@ -25,6 +31,8 @@ do_deploy:append() {
                 ln -sf ${UBOOT_DTB_IMAGE} ${DEPLOYDIR}/${UBOOT_DTB_BINARY}
                 ln -sf ${UBOOT_DTB_IMAGE} ${DEPLOYDIR}/${UBOOT_DTB_SYMLINK}
         fi
+
+        install ${WORKDIR}/Masters2024.bmp.gz ${DEPLOYDIR}/
 }
 
 UBOOT_NODTB_IMAGE = "u-boot-nodtb-${MACHINE}-${PV}-${PR}.bin"

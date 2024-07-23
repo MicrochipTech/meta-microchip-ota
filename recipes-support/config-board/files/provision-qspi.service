@@ -1,0 +1,14 @@
+[Unit]
+Description=Format QSPI flash
+Requires=first-boot-complete.target
+Before=first-boot-complete.target provision-mtls.service opt-swupdate.mount opt-app.mount swupdate.service
+ConditionFirstBoot=yes
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/provision-qspi.sh
+#RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
